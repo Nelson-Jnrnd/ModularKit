@@ -1,0 +1,16 @@
+@using ModularKit.Configuration
+@using ModularKit.Configuration.View
+
+<ItemSelectorDialogBase T="ConfigTypeOption"
+                     Items="@Options"
+                     SelectedItem="SelectedType"
+                     Title="@Title">
+    <ItemHeaderTemplate Context="s">
+        <MudStack>
+            <MudText Typo="Typo.h6">
+                @s.DisplayName
+            </MudText>
+            <MudDivider />
+        </MudStack>
+    </ItemHeaderTemplate>
+</ItemSelectorDialogBase>

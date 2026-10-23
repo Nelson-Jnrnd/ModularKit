@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup><IsPackable>false</IsPackable></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../DeviceWorkbench.Contracts/DeviceWorkbench.Contracts.csproj" />
+    <ProjectReference Include="../DeviceWorkbench.Plugin/DeviceWorkbench.Plugin.csproj" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="../../src/ModularKit.Plugins/ModularKit.Plugins.csproj" />
+    <ProjectReference Include="../../src/ModularKit.Configuration.Blazor/ModularKit.Configuration.Blazor.csproj" />
+    <ProjectReference Include="../../src/ModularKit.Persistence.Json/ModularKit.Persistence.Json.csproj" />
+  </ItemGroup>
+  <Target Name="StageExamplePlugin" AfterTargets="Build">
+    <Copy SourceFiles="../DeviceWorkbench.Plugin/bin/$(Configuration)/$(TargetFramework)/DeviceWorkbench.Plugin.dll" DestinationFolder="$(OutDir)plugins" />
+  </Target>
+  <Target Name="PublishExamplePlugin" AfterTargets="Publish">
+    <Copy SourceFiles="../DeviceWorkbench.Plugin/bin/$(Configuration)/$(TargetFramework)/DeviceWorkbench.Plugin.dll" DestinationFolder="$(PublishDir)plugins" />
+  </Target>
+</Project>

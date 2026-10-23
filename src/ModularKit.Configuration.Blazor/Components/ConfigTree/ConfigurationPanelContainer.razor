@@ -1,0 +1,104 @@
+@using ModularKit.Configuration.Blazor.Components.ConfigTree.ConfigNodes
+@using ModularKit.Configuration.Blazor.Components.ConfigTree.ConfigPanels
+@inject IStringLocalizer<CoreRazorUi> L
+
+<style>
+    .cfg-panel-meta {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 8px 20px;
+    }
+
+    .cfg-panel-meta-row {
+        min-width: 0;
+    }
+
+    .cfg-panel-meta-label {
+        display: block;
+        font-size: 0.72rem;
+        line-height: 1.1;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--mud-palette-text-secondary);
+    }
+
+    .cfg-panel-meta-value {
+        display: block;
+        margin-top: 2px;
+        font-size: 0.95rem;
+        line-height: 1.25;
+        color: var(--mud-palette-text-primary);
+        word-break: break-word;
+    }
+
+    .cfg-panel-breadcrumbs {
+        color: var(--mud-palette-text-primary);
+        font-size: 0.72rem;
+        margin-top: 2px;
+    }
+</style>
+
+<MudPaper Class="pa-2" Elevation="0">
+    @if (EffectiveSelectedItem != null)
+    {
+        <MudStack Row AlignItems="AlignItems.Start" Justify="Justify.SpaceBetween" Class="mb-2">
+            <MudStack Spacing="1" Class="flex-grow-1">
+                <MudStack Row AlignItems="AlignItems.Center" Spacing="2">
+                    <MudIcon Icon="@EffectiveSelectedItem.Icon" Size="Size.Medium" />
+                    <MudText Typo="Typo.h5">@EffectiveSelectedItem.Presentation.ConfigurationName</MudText>
+                    <MudSpacer />
+                    @if (BreadcrumbItems.Count > 1)
+                    {
+                        <MudBreadcrumbs Items="BreadcrumbItems"
+                                        Class="cfg-panel-breadcrumbs"
+                                        Separator=">"
+                                        MaxItems="4" />
+                    }
+                </MudStack>
+
+                <div class="cfg-panel-meta">
+                    <div class="cfg-panel-meta-row">
+                        <span class="cfg-panel-meta-label">@L["Configuration type"]</span>
+                        <span class="cfg-panel-meta-value">@EffectiveSelectedItem.Presentation.ConfigurationType</span>
+                    </div>
+
+                    @if (EffectiveSelectedItem.Presentation.HasExactSubtype)
+                    {
+                        <div class="cfg-panel-meta-row">
+                            <span class="cfg-panel-meta-label">@L["Exact subtype"]</span>
+                            <span class="cfg-panel-meta-value">@EffectiveSelectedItem.Presentation.ExactSubtype</span>
+                        </div>
+                    }
+                </div>
+            </MudStack>
+
+            @if (EffectiveSelectedItem.IsDeletable)
+            {
+                <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                               Color="Color.Error"
+                               Size="Size.Small"
+                               Disabled="@IsReadOnly"
+                               OnClick="OnDeleteClicked" />
+            }
+        </MudStack>
+        <MudDivider Class="mb-2" />
+        @if (EffectiveSelectedItem is EntityConfigElement entity)
+        {
+            <EntityPanel ConfigElement="entity"
+                         OnConfigChanged="OnConfigChanged"
+                         OnOpenRequested="OnOpenRequested" />
+        }
+        else if (EffectiveSelectedItem is CollectionConfigElement collection)
+        {
+            <CollectionPanel ConfigElement="collection"
+                             OnConfigChanged="OnConfigChanged"
+                             OnItemAdded="OnItemAdded" />
+        }
+    }
+    else
+    {
+        <MudText Typo="Typo.h5">@L["No item selected"]</MudText>
+        <MudText>@L["Please select an item from the configuration tree to view its details."]</MudText>
+    }
+</MudPaper>
+

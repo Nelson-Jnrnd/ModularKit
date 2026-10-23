@@ -1,0 +1,36 @@
+@typeparam T
+
+<ItemSelectorDialogBase T="T"
+                        Items="Items"
+                        SelectedItem="SelectedItem"
+                        Title="@Title">
+    <ItemHeaderTemplate Context="s">
+        <MudStack Spacing="1">
+            <MudText Typo="Typo.h6">
+                @GetHeaderText(s)
+            </MudText>
+
+            @if (GetSubtypeText(s) is string subtypeText)
+            {
+                <MudChip T="string"
+                         Size="Size.Small"
+                         Variant="Variant.Outlined"
+                         Color="Color.Default">
+                    @subtypeText
+                </MudChip>
+            }
+
+            <MudDivider />
+        </MudStack>
+    </ItemHeaderTemplate>
+
+    <ItemContentTemplate Context="s">
+        @if (GetPathText(s) is string pathText)
+        {
+            <MudText Typo="Typo.body2" Color="Color.Secondary">
+                @pathText
+            </MudText>
+        }
+    </ItemContentTemplate>
+</ItemSelectorDialogBase>
+

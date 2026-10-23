@@ -1,0 +1,66 @@
+@using ModularKit.Configuration
+@inject IStringLocalizer<CoreRazorUi> L
+
+<style>
+    .cfg-node {
+        position: relative;
+        border-radius: 12px;
+        padding: 12px 12px 12px 18px;
+        background: var(--mud-palette-surface);
+        border: 1px solid var(--mud-palette-lines-default);
+        overflow: hidden;
+    }
+
+    .cfg-node::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 10px;
+        background: linear-gradient( to bottom, color-mix(in srgb, var(--mud-palette-primary) var(--cfg-primary-pct), var(--mud-palette-surface)), transparent );
+    }
+</style>
+
+<MudStack Class="mt-4 cfg-node" Style="@GetNodeStyle()">
+    <MudStack Row AlignItems="AlignItems.Start" Justify="Justify.SpaceBetween" Class="mb-3">
+        <MudStack Spacing="1" Class="flex-grow-1">
+            <MudText Typo="Typo.subtitle1" Color="Color.Primary">@DisplayName</MudText>
+
+            @if (GetSelectedConfigurationsSummary() is string selectionSummary)
+            {
+                <MudText Typo="Typo.body2">@selectionSummary</MudText>
+            }
+
+            <MudTooltip Text="@GetTypeTooltip()" Disabled="@string.IsNullOrWhiteSpace(GetTypeTooltip())">
+                <MudChip T="string"
+                         Variant="Variant.Outlined"
+                         Size="Size.Small"
+                         Color="Color.Default">
+                    @GetVisibleTypeName()
+                </MudChip>
+            </MudTooltip>
+        </MudStack>
+
+        <MudButton Variant="Variant.Text"
+                   Color="Color.Default"
+                   Disabled="@(IsReadOnly || _selectedItems.Count == 0)"
+                   OnClick="ClearSelectionAsync">
+            @L["Clear"]
+        </MudButton>
+    </MudStack>
+
+    <MudSelect T="ConfigEntity"
+               Label="@DisplayName"
+               MultiSelection="true"
+               SelectedValues="_selectedItems"
+               SelectedValuesChanged="OnSelectionChangedAsync"
+               Variant="Variant.Outlined"
+               Disabled="IsReadOnly">
+        @foreach (ConfigEntity candidate in Candidates)
+        {
+            <MudSelectItem T="ConfigEntity" Value="candidate">@candidate.Name</MudSelectItem>
+        }
+    </MudSelect>
+</MudStack>
+

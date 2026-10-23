@@ -1,0 +1,33 @@
+<root><resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, ...</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, ...</value></resheader>
+  <data name="Declared type: {0}" xml:space="preserve"><value>Type déclaré : {0}</value></data>
+  <data name="From {0}" xml:space="preserve"><value>Depuis {0}</value></data>
+  <data name="Configuration type" xml:space="preserve"><value>Type de configuration</value></data>
+  <data name="Exact subtype" xml:space="preserve"><value>Sous-type exact</value></data>
+  <data name="No item selected" xml:space="preserve"><value>Aucun élément sélectionné</value></data>
+  <data name="Please select an item from the configuration tree to view its details." xml:space="preserve"><value>Sélectionnez un élément dans l'arbre de configuration pour afficher ses détails.</value></data>
+  <data name="Select existing" xml:space="preserve"><value>Sélectionner un existant</value></data>
+  <data name="Add" xml:space="preserve"><value>Ajouter</value></data>
+  <data name="Delete" xml:space="preserve"><value>Supprimer</value></data>
+  <data name="Clear" xml:space="preserve"><value>Effacer</value></data>
+  <data name="Name" xml:space="preserve"><value>Nom</value></data>
+  <data name="Parameters" xml:space="preserve"><value>Paramètres</value></data>
+  <data name="Components" xml:space="preserve"><value>Composants</value></data>
+  <data name="Replace" xml:space="preserve"><value>Remplacer</value></data>
+  <data name="Untitled" xml:space="preserve"><value>Sans titre</value></data>
+  <data name="{0} +{1} more" xml:space="preserve"><value>{0} +{1} de plus</value></data>
+  <data name="Name is required." xml:space="preserve"><value>Le nom est obligatoire.</value></data>
+  <data name="Change selection" xml:space="preserve"><value>Changer la sélection</value></data>
+  <data name="Delete blocked" xml:space="preserve"><value>Suppression bloquée</value></data>
+  <data name="OK" xml:space="preserve"><value>OK</value></data>
+  <data name="Property" xml:space="preserve"><value>Propriété</value></data>
+  <data name="Deleting &lt;strong&gt;{0}&lt;/strong&gt; is blocked because it is still referenced by other configuration items." xml:space="preserve"><value>La suppression de &lt;strong&gt;{0}&lt;/strong&gt; est bloquée car cet élément est encore référencé par d'autres éléments de configuration.</value></data>
+  <data name="Remove or update these references first:" xml:space="preserve"><value>Supprimez ou mettez d'abord à jour ces références :</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Annuler</value></data>
+  <data name="Confirm" xml:space="preserve"><value>Confirmer</value></data>
+  <data name="Delete item" xml:space="preserve"><value>Supprimer l'élément</value></data>
+  <data name="Dialog returned invalid data." xml:space="preserve"><value>La boîte de dialogue a retourné des données invalides.</value></data>
+  <data name="Select {0} ({1}) for {2}" xml:space="preserve"><value>Sélectionner {0} ({1}) pour {2}</value></data>
+  </root>

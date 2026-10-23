@@ -1,0 +1,346 @@
+{
+  "sourceRepository": "Nelson-Jnrnd/Softponics",
+  "sourceCommit": "601a682ab3a7e540469da6fd7823d5679e4bc8f3",
+  "files": [
+    {
+      "source": "GreenTrack.Core/Configuration/References/ConfigRef.cs",
+      "destination": "src/ModularKit.Configuration/References/ConfigRef.cs"
+    },
+    {
+      "source": "GreenTrack.Core/Configuration/References/ConfigIntegrityException.cs",
+      "destination": "src/ModularKit.Configuration/References/ConfigIntegrityException.cs"
+    },
+    {
+      "source": "GreenTrack.Core/Configuration/References/IConfigRef.cs",
+      "destination": "src/ModularKit.Configuration/References/IConfigRef.cs"
+    },
+    {
+      "source": "GreenTrack.Core/Configuration/References/ConfigReferenceEntry.cs",
+      "destination": "src/ModularKit.Configuration/References/ConfigReferenceEntry.cs"
+    },
+    {
+      "source": "GreenTrack.Core/Configuration/References/RequiredConfigRef.cs",
+      "destination": "src/ModularKit.Configuration/References/RequiredConfigRef.cs"
+    },
+    {
+      "source": "GreenTrack.Core/Configuration/View/ConfigPropertyExtensions.cs",
+      "destination": "src/ModularKit.Configuration/View/ConfigPropertyExtensions.cs"
+    },
+    {
+      "source": "GreenTrack.Core/Configuration/View/IConfigEntityFactory.cs",
+      "destination": "src/ModularKit.Configuration/View/IConfigEntityFactory.cs"
+    },
+    {
+      "source": "GreenTrack.Core/Configuration/View/InlineAttribute.cs",
+      "destination": "src/ModularKit.Configuration/View/InlineAttribute.cs"
+    },
+    {
+      "source": "GreenTrack.Core/Configuration/View/ComponentAssociationAttribute.cs",
+      "destination": "src/ModularKit.Configuration/View/ComponentAssociationAttribute.cs"
+    },
+    {
+      "source": "GreenTrack.Core/Configuration/View/ConfigTreeIconAttribute.cs",
+      "destination": "src/ModularKit.Configuration/View/ConfigTreeIconAttribute.cs"
+    },
+    {
+      "source": "GreenTrack.Core/Configuration/View/IScalarOptionsProvider.cs",
+      "destination": "src/ModularKit.Configuration/View/IScalarOptionsProvider.cs"
+    },
+    {
+      "source": "GreenTrack.Core/Configuration/View/InvariantTypeDisplayName.cs",
+      "destination": "src/ModularKit.Configuration/View/InvariantTypeDisplayName.cs"
+    },
+    {
+      "source": "GreenTrack.Core/Configuration/View/ConfigFormHiddenAttribute.cs",
+      "destination": "src/ModularKit.Configuration/View/ConfigFormHiddenAttribute.cs"
+    },
+    {
+      "source": "GreenTrack.Core/Configuration/View/ScalarOptionsAttribute.cs",
+      "destination": "src/ModularKit.Configuration/View/ScalarOptionsAttribute.cs"
+    },
+    {
+      "source": "GreenTrack.Core/Configuration/View/AutoNamedAttribute.cs",
+      "destination": "src/ModularKit.Configuration/View/AutoNamedAttribute.cs"
+    },
+    {
+      "source": "GreenTrack.Core/Serialization/SerializationOptionsProvider.cs",
+      "destination": "src/ModularKit.Configuration/Serialization/SerializationOptionsProvider.cs"
+    },
+    {
+      "source": "GreenTrack.Core/Serialization/SerializationTopics.cs",
+      "destination": "src/ModularKit.Configuration/Serialization/SerializationTopics.cs"
+    },
+    {
+      "source": "GreenTrack.Core/Serialization/ISerializationOptionsProvider.cs",
+      "destination": "src/ModularKit.Configuration/Serialization/ISerializationOptionsProvider.cs"
+    },
+    {
+      "source": "GreenTrack.Core/Serialization/TopicJsonSerializerOptionsFactory.cs",
+      "destination": "src/ModularKit.Configuration/Serialization/TopicJsonSerializerOptionsFactory.cs"
+    },
+    {
+      "source": "GreenTrack.Core/Serialization/SerializationTopicAttribute.cs",
+      "destination": "src/ModularKit.Configuration/Serialization/SerializationTopicAttribute.cs"
+    },
+    {
+      "source": "GreenTrack.Core/Domain/ConfigEntity.cs",
+      "destination": "src/ModularKit.Configuration/ConfigEntity.cs"
+    },
+    {
+      "source": "GreenTrack.Core/Domain/UniqueAttribute.cs",
+      "destination": "src/ModularKit.Configuration/UniqueAttribute.cs"
+    },
+    {
+      "source": "GreenTrack.Core/Domain/IConnectionTestable.cs",
+      "destination": "src/ModularKit.Configuration/IConnectionTestable.cs"
+    },
+    {
+      "source": "GreenTrack.Core/Domain/ConnectionTestResult.cs",
+      "destination": "src/ModularKit.Configuration/ConnectionTestResult.cs"
+    },
+    {
+      "source": "GreenTrack.Core/PluginManagement/IPluginManager.cs",
+      "destination": "src/ModularKit.Plugins/IPluginManager.cs"
+    },
+    {
+      "source": "GreenTrack.Core/PluginManagement/PluginTypeOption.cs",
+      "destination": "src/ModularKit.Plugins/PluginTypeOption.cs"
+    },
+    {
+      "source": "GreenTrack.Core/PluginManagement/PluginTypeDisplayNameAttribute.cs",
+      "destination": "src/ModularKit.Plugins/PluginTypeDisplayNameAttribute.cs"
+    },
+    {
+      "source": "GreenTrack.Core/PluginManagement/IPlugin.cs",
+      "destination": "src/ModularKit.Plugins/IPlugin.cs"
+    },
+    {
+      "source": "GreenTrack.Core/PluginManagement/Serialization/PolymorphicTypeMapping.cs",
+      "destination": "src/ModularKit.Plugins/Serialization/PolymorphicTypeMapping.cs"
+    },
+    {
+      "source": "GreenTrack.Core/PluginManagement/Serialization/PolymorphicInstanceFactory.cs",
+      "destination": "src/ModularKit.Plugins/Serialization/PolymorphicInstanceFactory.cs"
+    },
+    {
+      "source": "GreenTrack.Core/PluginManagement/Serialization/PolymorphicTypeRegistryBuilder.cs",
+      "destination": "src/ModularKit.Plugins/Serialization/PolymorphicTypeRegistryBuilder.cs"
+    },
+    {
+      "source": "GreenTrack.Core/PluginManagement/Serialization/PolymorphicJsonConverter.cs",
+      "destination": "src/ModularKit.Plugins/Serialization/PolymorphicJsonConverter.cs"
+    },
+    {
+      "source": "GreenTrack.Core/Infrastructure/Persistence/JsonFileStore.cs",
+      "destination": "src/ModularKit.Persistence.Json/JsonFileStore.cs"
+    },
+    {
+      "source": "GreenTrack.Core/Application/Services/IJsonFileStore.cs",
+      "destination": "src/ModularKit.Persistence.Json/IJsonFileStore.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ConfigTree/ConfigurationPanelContainer.razor.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ConfigTree/ConfigurationPanelContainer.razor.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ConfigTree/ConfigurationTree.razor.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ConfigTree/ConfigurationTree.razor.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ConfigTree/ConfigUiDisplayNames.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ConfigTree/ConfigUiDisplayNames.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ConfigTree/ConfigurationPanelContainer.razor",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ConfigTree/ConfigurationPanelContainer.razor"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ConfigTree/ConfigEditGate.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ConfigTree/ConfigEditGate.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ConfigTree/ConfigurationTree.razor",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ConfigTree/ConfigurationTree.razor"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ConfigTree/ConfigPanels/ConfigPanelBase.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ConfigTree/ConfigPanels/ConfigPanelBase.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ConfigTree/ConfigPanels/CollectionPanel.razor",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ConfigTree/ConfigPanels/CollectionPanel.razor"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ConfigTree/ConfigPanels/CollectionPanel.razor.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ConfigTree/ConfigPanels/CollectionPanel.razor.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ConfigTree/ConfigPanels/EntityPanel.razor",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ConfigTree/ConfigPanels/EntityPanel.razor"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ConfigTree/ConfigPanels/EntityPanel.razor.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ConfigTree/ConfigPanels/EntityPanel.razor.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ConfigTree/ConfigForm/ScalarField.razor",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ConfigTree/ConfigForm/ScalarField.razor"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ConfigTree/ConfigForm/ConfigFormDescriptors.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ConfigTree/ConfigForm/ConfigFormDescriptors.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ConfigTree/ConfigForm/ConfigFormDescriptorFactory.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ConfigTree/ConfigForm/ConfigFormDescriptorFactory.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ConfigTree/ConfigForm/ComponentsList.razor",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ConfigTree/ConfigForm/ComponentsList.razor"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ConfigTree/ConfigForm/ConnectionTestButton.razor",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ConfigTree/ConfigForm/ConnectionTestButton.razor"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ConfigTree/ConfigForm/AddComponentCard.razor",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ConfigTree/ConfigForm/AddComponentCard.razor"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ConfigTree/ConfigForm/ConfigRefsListCard.razor",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ConfigTree/ConfigForm/ConfigRefsListCard.razor"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ConfigTree/ConfigForm/AddComponentCard.razor.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ConfigTree/ConfigForm/AddComponentCard.razor.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ConfigTree/ConfigForm/DynamicConfigForm.razor.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ConfigTree/ConfigForm/DynamicConfigForm.razor.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ConfigTree/ConfigForm/ComponentsList.razor.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ConfigTree/ConfigForm/ComponentsList.razor.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ConfigTree/ConfigForm/ConnectionTestButton.razor.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ConfigTree/ConfigForm/ConnectionTestButton.razor.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ConfigTree/ConfigForm/ConfigRefsListCard.razor.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ConfigTree/ConfigForm/ConfigRefsListCard.razor.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ConfigTree/ConfigForm/DynamicConfigForm.razor",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ConfigTree/ConfigForm/DynamicConfigForm.razor"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ConfigTree/ConfigNodes/ConfigElementFactory.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ConfigTree/ConfigNodes/ConfigElementFactory.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ConfigTree/ConfigNodes/EntityConfigElement.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ConfigTree/ConfigNodes/EntityConfigElement.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ConfigTree/ConfigNodes/CollectionConfigElement.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ConfigTree/ConfigNodes/CollectionConfigElement.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ConfigTree/ConfigNodes/ConfigElement.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ConfigTree/ConfigNodes/ConfigElement.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ConfigTree/ConfigNodes/ConfigPresentationMetadata.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ConfigTree/ConfigNodes/ConfigPresentationMetadata.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ConfigTree/ConfigNodes/ConfigTreeIconResolver.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ConfigTree/ConfigNodes/ConfigTreeIconResolver.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ItemSelector/ScalarOptionSelectorDialog.razor",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ItemSelector/ScalarOptionSelectorDialog.razor"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ItemSelector/ItemCard.razor",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ItemSelector/ItemCard.razor"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ItemSelector/TypeSelectorDialog.razor.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ItemSelector/TypeSelectorDialog.razor.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ItemSelector/ItemSelectorDialogBase.razor",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ItemSelector/ItemSelectorDialogBase.razor"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ItemSelector/ItemSelectorDialogBase.razor.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ItemSelector/ItemSelectorDialogBase.razor.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ItemSelector/ScalarOptionSelectorDialog.razor.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ItemSelector/ScalarOptionSelectorDialog.razor.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ItemSelector/ItemCard.razor.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ItemSelector/ItemCard.razor.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ItemSelector/GenericItemSelectorDialog.razor",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ItemSelector/GenericItemSelectorDialog.razor"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ItemSelector/TypeSelectorDialog.razor",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ItemSelector/TypeSelectorDialog.razor"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/ItemSelector/GenericItemSelectorDialog.razor.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Components/ItemSelector/GenericItemSelectorDialog.razor.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Services/ItemSelector/DefaultConfigEntityFactory.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Services/ItemSelector/DefaultConfigEntityFactory.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Services/ItemSelector/ConfigSelectorTitleBuilder.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Services/ItemSelector/ConfigSelectorTitleBuilder.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Infrastructure/CircuitCulture.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Infrastructure/CircuitCulture.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Infrastructure/CircuitCultureComponentBase.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Infrastructure/CircuitCultureComponentBase.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Infrastructure/CircuitCultureHandler.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Infrastructure/CircuitCultureHandler.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Resources/CoreRazorText.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Resources/CoreRazorText.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Resources/CoreRazorUi.cs",
+      "destination": "src/ModularKit.Configuration.Blazor/Resources/CoreRazorUi.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Razor/Components/_Imports.razor",
+      "destination": "src/ModularKit.Configuration.Blazor/_Imports.razor"
+    },
+    {
+      "source": "GreenTrack.Core.Tests/Configuration/ConfigRefRequirednessTests.cs",
+      "destination": "tests/ModularKit.Tests/Configuration/ConfigRefRequirednessTests.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Tests/Configuration/RequiredAssociationSerializationTests.cs",
+      "destination": "tests/ModularKit.Tests/Configuration/RequiredAssociationSerializationTests.cs"
+    },
+    {
+      "source": "GreenTrack.Core.Tests/Configuration/ConfigurationPanelSelectionGuardTests.cs",
+      "destination": "tests/ModularKit.Tests/Configuration/ConfigurationPanelSelectionGuardTests.cs"
+    }
+  ]
+}

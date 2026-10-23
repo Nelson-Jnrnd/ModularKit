@@ -1,0 +1,12 @@
+@using ModularKit.Configuration
+@using ModularKit.Configuration.Blazor.Components.ConfigTree.ConfigForm
+@using ModularKit.Configuration.Blazor.Components.ConfigTree.ConfigNodes
+
+@inherits ConfigPanelBase<CollectionConfigElement>
+
+<ComponentsList T="ConfigEntity"
+                ObjectsToEdit="Items"
+                OnAddRequested="AddItem"
+                OnDeleteRequested="RemoveItemsAsync">
+</ComponentsList>
+

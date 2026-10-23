@@ -1,0 +1,20 @@
+@typeparam T
+<MudCard Style="@($"width:100%;cursor: pointer; {CardStyle}; border-radius: 10px; transition: all 0.25s ease;")"
+         Class="pa-1 hoverable"
+         Outlined>
+
+    @if (HeaderTemplate is not null)
+    {
+        <MudCardHeader>
+            @HeaderTemplate(Item)
+        </MudCardHeader>
+    }
+
+    @if (ContentTemplate is not null)
+    {
+        <MudCardContent>
+            @ContentTemplate(Item)
+        </MudCardContent>
+    }
+</MudCard>
+

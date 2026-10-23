@@ -1,0 +1,182 @@
+@using ModularKit.Configuration
+@inject IStringLocalizer<CoreRazorUi> L
+
+<style>
+    .cfg-node {
+        position: relative;
+        border-radius: 12px;
+        padding: 12px 12px 12px 18px;
+        background: var(--mud-palette-surface);
+        border: 1px solid var(--mud-palette-lines-default);
+        overflow: hidden;
+    }
+
+    .cfg-node::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 10px;
+        background: linear-gradient( to bottom, color-mix(in srgb, var(--mud-palette-primary) var(--cfg-primary-pct), var(--mud-palette-surface)), transparent );
+    }
+</style>
+
+<MudStack Class="mt-4 cfg-node" Style="@GetNodeStyle()">
+
+    @if (ObjectToEdit is not null)
+    {
+        @if (IsInline)
+        {
+            <MudExpansionPanels Elevation="0">
+                <MudExpansionPanel Expanded>
+                    <TitleContent>
+                        <MudStack Row AlignItems="AlignItems.Start" Justify="Justify.SpaceBetween" Class="w-100">
+                            <MudStack Spacing="1" Class="flex-grow-1">
+                                <MudStack Row AlignItems="AlignItems.Center" Spacing="2">
+                                    @if (!string.IsNullOrEmpty(Icon))
+                                    {
+                                        <MudIcon Icon="@Icon" Size="Size.Small" Color="Color.Primary" />
+                                    }
+                                    <MudText Typo="Typo.subtitle2" Color="Color.Primary">
+                                        @DisplayName
+                                    </MudText>
+                                </MudStack>
+
+                                <MudText Typo="Typo.h6">
+                                    @GetSelectedConfigurationName()
+                                </MudText>
+
+                                <MudTooltip Text="@GetTypeTooltip()" Disabled="@string.IsNullOrWhiteSpace(GetTypeTooltip())">
+                                    <MudChip T="string"
+                                             Variant="Variant.Outlined"
+                                             Size="Size.Small"
+                                             Color="Color.Default">
+                                        @GetVisibleTypeName()
+                                    </MudChip>
+                                </MudTooltip>
+                            </MudStack>
+
+                            <MudStack Row AlignItems="AlignItems.Center" Spacing="1" @onclick:stopPropagation="true">
+                                @if (CanReplace)
+                                {
+                                    <MudButton StartIcon="@ReplaceButtonIcon"
+                                               Color="Color.Primary"
+                                               Variant="Variant.Outlined"
+                                               Size="Size.Small"
+                                               Disabled="@IsReadOnly"
+                                               OnClick="ReplaceObjectAsync">
+                                        @ReplaceButtonLabel
+                                    </MudButton>
+                                }
+                                else if (CanDelete)
+                                {
+                                    <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                                   Color="Color.Error"
+                                                   Size="Size.Small"
+                                                   Disabled="@IsReadOnly"
+                                                   OnClick="DeleteObjectAsync" />
+                                }
+                            </MudStack>
+                        </MudStack>
+                    </TitleContent>
+
+                    <ChildContent>
+                        <DynamicConfigForm ObjectToEdit="ObjectToEdit" OnConfigChanged="OnConfigChanged" IndentLevel="IndentLevel" />
+                    </ChildContent>
+                </MudExpansionPanel>
+            </MudExpansionPanels>
+        }
+        else
+        {
+            <MudStack Row AlignItems="AlignItems.Start" Justify="Justify.SpaceBetween" Class="w-100" Style="@GetSummaryCardStyle()" @onclick="OpenCardAsync">
+                <MudStack Spacing="1" Class="flex-grow-1">
+                    <MudStack Row AlignItems="AlignItems.Center" Spacing="2">
+                        @if (!string.IsNullOrEmpty(Icon))
+                        {
+                            <MudIcon Icon="@Icon" Size="Size.Small" Color="Color.Primary" />
+                        }
+                        <MudText Typo="Typo.subtitle2" Color="Color.Primary">
+                            @DisplayName
+                        </MudText>
+                    </MudStack>
+
+                    <MudText Typo="Typo.h6">
+                        @GetSelectedConfigurationName()
+                    </MudText>
+
+                    <MudTooltip Text="@GetTypeTooltip()" Disabled="@string.IsNullOrWhiteSpace(GetTypeTooltip())">
+                        <MudChip T="string"
+                                 Variant="Variant.Outlined"
+                                 Size="Size.Small"
+                                 Color="Color.Default">
+                            @GetVisibleTypeName()
+                        </MudChip>
+                    </MudTooltip>
+                </MudStack>
+
+                <MudStack Row AlignItems="AlignItems.Center" Spacing="1" @onclick:stopPropagation="true">
+                    @if (CanReplace)
+                    {
+                        <MudButton StartIcon="@ReplaceButtonIcon"
+                                   Color="Color.Primary"
+                                   Variant="Variant.Outlined"
+                                   Size="Size.Small"
+                                   Disabled="@IsReadOnly"
+                                   OnClick="ReplaceObjectAsync">
+                            @ReplaceButtonLabel
+                        </MudButton>
+                    }
+                    else if (CanDelete)
+                    {
+                        <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                       Color="Color.Error"
+                                       Size="Size.Small"
+                                       Disabled="@IsReadOnly"
+                                       OnClick="DeleteObjectAsync" />
+                    }
+                </MudStack>
+            </MudStack>
+        }
+    }
+    else
+    {
+        <MudStack Spacing="2">
+            <MudStack Row AlignItems="AlignItems.Center" Spacing="2">
+                @if (!string.IsNullOrEmpty(Icon))
+                {
+                    <MudIcon Icon="@Icon" Size="Size.Small" Color="Color.Primary" />
+                }
+                <MudText Typo="Typo.subtitle1" Color="Color.Primary">
+                    @DisplayName
+                </MudText>
+            </MudStack>
+
+            <MudChip T="string"
+                     Variant="Variant.Outlined"
+                     Size="Size.Small"
+                     Color="Color.Default">
+                @GetDeclaredTypeName()
+            </MudChip>
+
+            @if (OnSelectExistingRequested.HasDelegate)
+            {
+                <MudButton Variant="Variant.Outlined" Disabled="@IsReadOnly" OnClick="OpenExistingObjectSelectorAsync">
+                    @L["Select existing"]
+                </MudButton>
+            }
+            else
+            {
+                <MudButton StartIcon="@Icons.Material.Filled.AddCircleOutline"
+                           Color="Color.Primary"
+                           Variant="Variant.Outlined"
+                           Disabled="@IsReadOnly"
+                           OnClick="OpenObjectSelectorAsync">
+                    @L["Add"]
+                </MudButton>
+            }
+        </MudStack>
+    }
+
+</MudStack>
+

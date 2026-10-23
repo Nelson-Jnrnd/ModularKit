@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/ModularKit.Plugins/ModularKit.Plugins.csproj" />
+    <Project Path="src/ModularKit.Configuration/ModularKit.Configuration.csproj" />
+    <Project Path="src/ModularKit.Configuration.Blazor/ModularKit.Configuration.Blazor.csproj" />
+    <Project Path="src/ModularKit.Persistence.Json/ModularKit.Persistence.Json.csproj" />
+  </Folder>
+  <Folder Name="/samples/">
+    <Project Path="samples/DeviceWorkbench.Contracts/DeviceWorkbench.Contracts.csproj" />
+    <Project Path="samples/DeviceWorkbench/DeviceWorkbench.csproj" />
+    <Project Path="samples/DeviceWorkbench.Plugin/DeviceWorkbench.Plugin.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/ModularKit.Tests/ModularKit.Tests.csproj" />
+  </Folder>
+</Solution>

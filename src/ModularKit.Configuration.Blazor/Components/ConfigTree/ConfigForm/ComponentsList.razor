@@ -1,0 +1,34 @@
+@using ModularKit.Configuration
+@inject IStringLocalizer<CoreRazorUi> L
+@typeparam T where T : ConfigEntity
+
+<MudButtonGroup FullWidth
+                Variant="Variant.Outlined"
+                Class="pb-2">
+    <MudButton StartIcon="@Icons.Material.Filled.Add"
+               Disabled="@IsReadOnly"
+               OnClick="OnAddClicked">
+        @L["Add"]
+    </MudButton>
+    <MudButton StartIcon="@Icons.Material.Filled.Delete"
+               Disabled="@IsReadOnly"
+               OnClick="OnDeleteClicked">
+        @L["Delete"]
+    </MudButton>
+</MudButtonGroup>
+<MudList T=T
+         @bind-SelectedValues="SelectedObjects"
+         SelectionMode="SelectionMode.MultiSelection">
+    @foreach (T item in ObjectsToEdit)
+    {
+        if (item is null)
+        {
+            continue;
+        }
+
+        <MudListItem Value="item"
+                     Text="@item.Name">
+        </MudListItem>
+    }
+</MudList>
+

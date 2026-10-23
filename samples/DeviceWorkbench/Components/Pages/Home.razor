@@ -1,0 +1,95 @@
+@page "/"
+@using DeviceWorkbench.Contracts
+@using ModularKit.Configuration.Blazor.Components.ConfigTree
+@using ModularKit.Configuration.Blazor.Components.ConfigTree.ConfigNodes
+@using ModularKit.Configuration.Serialization
+@using ModularKit.Persistence.Json
+@inject IJsonFileStore Store
+@inject ISerializationOptionsProvider Json
+@inject IWebHostEnvironment Environment
+@inject ExamplePluginInfo PluginInfo
+
+<PageTitle>Device workbench</PageTitle>
+<MudThemeProvider />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+<main style="max-width:1100px;margin:32px auto;padding:0 20px">
+    <h1>Device workbench</h1>
+    <p>Add a device supplied by a separately loaded plugin, edit its settings, then save and reload.</p>
+    <p>@PluginInfo.Label</p>
+    @if (_error is not null)
+    {
+        <MudAlert Severity="Severity.Error">@_error</MudAlert>
+    }
+    @if (_root is not null)
+    {
+        <MudButton OnClick="SaveAsync" Variant="Variant.Filled" Disabled="_saving">Save</MudButton>
+        <MudButton OnClick="ReloadAsync" Disabled="_saving">Reload</MudButton>
+        <MudText Typo="Typo.body2" role="status">@_status</MudText>
+        <MudGrid Spacing="4" Class="mt-4">
+            <MudItem xs="12" md="4">
+                <ConfigurationTree Root="_root" @bind-SelectedItem="_selected" />
+            </MudItem>
+            <MudItem xs="12" md="8">
+                <ConfigurationPanelContainer SelectedItem="_selected" OnConfigChanged="Refresh"
+                    OnItemAdded="SelectAdded" OnItemDeleted="Deleted" OnOpenRequested="Open" />
+            </MudItem>
+        </MudGrid>
+    }
+</main>
+
+@code {
+    private Workbench _model = new() { Name = "Workbench" };
+    private EntityConfigElement? _root;
+    private ConfigElement? _selected;
+    private string? _error;
+    private string _status = string.Empty;
+    private bool _saving;
+    private FileInfo StorageFile => new(Path.Combine(Environment.ContentRootPath, "storage", "workbench.json"));
+
+    protected override Task OnInitializedAsync() => ReloadAsync();
+
+    private async Task ReloadAsync()
+    {
+        try
+        {
+            if (StorageFile.Exists)
+                _model = await Store.LoadAsync<Workbench>(StorageFile, Json.Config, CancellationToken.None);
+            _model.WireUp(null);
+            _root = new EntityConfigElement(_model);
+            _selected = _root;
+            _error = null;
+            _status = StorageFile.Exists ? "Configuration loaded." : "No saved configuration yet.";
+        }
+        catch (Exception exception) { _error = exception.Message; }
+    }
+
+    private async Task SaveAsync()
+    {
+        _saving = true;
+        try
+        {
+            _model.PrepareConfigReferencesForPersistence();
+            await Store.SaveAsync(_model, StorageFile, Json.Config, CancellationToken.None);
+            _error = null;
+            _status = "Configuration saved.";
+        }
+        catch (Exception exception) { _error = exception.Message; }
+        finally { _saving = false; }
+    }
+
+    private void Refresh()
+    {
+        _model.WireUp(null);
+        var selectedEntity = (_selected as EntityConfigElement)?.Data;
+        _root!.RefreshFromDomain();
+        _selected = selectedEntity is null ? _root : _root.FindInChildren(selectedEntity) ?? _root;
+        _status = "Unsaved changes.";
+    }
+
+    private void Deleted() { _selected = _root; Refresh(); }
+    private void Open(ModularKit.Configuration.ConfigEntity entity) => _selected = _root!.FindInChildren(entity);
+    private void SelectAdded(ConfigElement element) =>
+        _selected = element is EntityConfigElement entity ? _root!.FindInChildren(entity.Data) : element;
+}

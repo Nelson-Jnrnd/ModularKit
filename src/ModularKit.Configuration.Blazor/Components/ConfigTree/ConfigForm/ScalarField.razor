@@ -1,0 +1,326 @@
+@using System.ComponentModel.DataAnnotations
+@using System.Reflection
+@using ModularKit.Configuration.View
+@using ModularKit.Configuration.Blazor.Components.ItemSelector
+@using Microsoft.Extensions.Logging
+
+@inject IEnumerable<IScalarOptionsProvider> OptionsProviders
+@inject IDialogService DialogService
+@inject ILogger<ScalarField> Logger
+
+    @switch (Code)
+    {
+        case TypeCode.String when _options is not null:
+            {
+                var selected = Value as string ?? string.Empty;
+
+                <MudField Class="mb-3"
+                          FullWidth="true"
+                          Margin="Margin.Dense"
+                          Variant="Variant.Outlined"
+                          Label="@Label">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <MudText Class="flex-grow-1"
+                                 Color="@(string.IsNullOrEmpty(selected) ? Color.Secondary : Color.Inherit)">
+                            @CurrentLabel(selected)
+                        </MudText>
+                        <MudButton Variant="Variant.Outlined"
+                                   Color="Color.Primary"
+                                   Size="Size.Small"
+                                   StartIcon="@Icons.Material.Filled.List"
+                                   Disabled="@IsReadOnly"
+                                   OnClick="OpenSelectorAsync">
+                            Select
+                        </MudButton>
+                    </div>
+                </MudField>
+                break;
+            }
+
+        case TypeCode.String:
+            {
+                var s = Value as string ?? string.Empty;
+
+                if (IsPassword)
+                {
+                    var inputType = _reveal ? InputType.Text : InputType.Password;
+                    var icon = _reveal ? Icons.Material.Filled.VisibilityOff : Icons.Material.Filled.Visibility;
+
+                    <MudTextField T="string"
+                                  ReadOnly="@IsReadOnly"
+                                  Class="mb-3"
+                                  FullWidth="true"
+                                  Margin="Margin.Dense"
+                                  Variant="Variant.Outlined"
+                                  Label="@Label"
+                                  InputType="@inputType"
+                                  Adornment="Adornment.End"
+                                  AdornmentIcon="@icon"
+                                  OnAdornmentClick="@ToggleReveal"
+                                  Value="@s"
+                                  ValueChanged="OnStringChanged" Validation="@StringValidation" />
+                }
+                else if (IsMultiline)
+                {
+                    <MudTextField T="string"
+                                  ReadOnly="@IsReadOnly"
+                                  Class="mb-3"
+                                  FullWidth="true"
+                                  Margin="Margin.Dense"
+                                  Variant="Variant.Outlined"
+                                  Label="@Label"
+                                  ShrinkLabel
+                                  Lines="5"
+                                  Value="@s"
+                                  ValueChanged="OnStringChanged" Validation="@StringValidation" />
+                }
+                else
+                {
+                    <MudTextField T="string"
+                                    ReadOnly="@IsReadOnly"
+                                    Class="mb-3"
+                                    FullWidth="true"
+                                    Margin="Margin.Dense"
+                                    Variant="Variant.Outlined"
+                                    Label="@Label"
+                                    Value="@s"
+                                    ValueChanged="OnStringChanged" Validation="@StringValidation" />
+                }
+                break;
+            }
+
+        case TypeCode.Int32:
+            {
+                var v = Value is null ? 0 : Convert.ToInt32(Value);
+                <MudNumericField T="int"
+                                 ReadOnly="@IsReadOnly"
+                                 Class="mb-3"
+                                 FullWidth="true"
+                                 Margin="Margin.Dense"
+                                 Variant="Variant.Outlined"
+                                 Label="@Label"
+                                 Value="@v"
+                                 ValueChanged="OnIntChanged" Validation="@IntValidation" />
+                break;
+            }
+
+        case TypeCode.Int64:
+            {
+                var v = Value is null ? 0L : Convert.ToInt64(Value);
+                <MudNumericField T="long"
+                                 ReadOnly="@IsReadOnly"
+                                 Class="mb-3"
+                                 FullWidth="true"
+                                 Margin="Margin.Dense"
+                                 Variant="Variant.Outlined"
+                                 Label="@Label"
+                                 Value="@v"
+                                 ValueChanged="OnLongChanged" Validation="@LongValidation" />
+                break;
+            }
+
+        case TypeCode.Double:
+            {
+                var v = Convert.ToDouble(Value ?? 0d);
+                <MudNumericField T="double"
+                                 ReadOnly="@IsReadOnly"
+                                 Class="mb-3"
+                                 FullWidth="true"
+                                 Margin="Margin.Dense"
+                                 Variant="Variant.Outlined"
+                                 Label="@Label"
+                                 Format="#,0.#####"
+                                 Value="@v"
+                                 ValueChanged="OnDoubleChanged" Validation="@DoubleValidation" />
+                break;
+            }
+
+        case TypeCode.Single:
+            {
+                var v = Convert.ToSingle(Value ?? 0f);
+                <MudNumericField T="float"
+                                 ReadOnly="@IsReadOnly"
+                                 Class="mb-3"
+                                 FullWidth="true"
+                                 Margin="Margin.Dense"
+                                 Variant="Variant.Outlined"
+                                 Label="@Label"
+                                 Format="#,0.#####"
+                                 Value="@v"
+                                 ValueChanged="OnFloatChanged" Validation="@FloatValidation" />
+                break;
+            }
+
+        case TypeCode.Boolean:
+            {
+                var v = Value is bool b && b;
+                <MudSwitch T="bool"
+                           ReadOnly="@IsReadOnly"
+                           Class="mb-3"
+                           Color="Color.Primary"
+                           Label="@Label"
+                           Value="@v"
+                           ValueChanged="OnBoolChanged" />
+                break;
+            }
+
+        case TypeCode.Object when EnumType is not null:
+            {
+                <MudSelect T="object"
+                           ReadOnly="@IsReadOnly"
+                           Class="mb-3"
+                           FullWidth="true"
+                           Margin="Margin.Dense"
+                           Variant="Variant.Outlined"
+                           Label="@Label"
+                           Value="@(Value ?? Enum.GetValues(EnumType).GetValue(0))"
+                           ValueChanged="OnObjectChanged">
+                    @foreach (object enumValue in Enum.GetValues(EnumType))
+                    {
+                        <MudSelectItem T="object" Value="enumValue">@enumValue</MudSelectItem>
+                    }
+                </MudSelect>
+                break;
+            }
+}
+
+@code {
+    [CascadingParameter]
+    private ConfigEditGate Gate { get; set; } = ConfigEditGate.Unrestricted;
+
+    [Parameter, EditorRequired] public PropertyInfo Property { get; set; } = default!;
+    [Parameter, EditorRequired] public string Label { get; set; } = "";
+    [Parameter] public object? Value { get; set; }
+    [Parameter, EditorRequired] public TypeCode Code { get; set; }
+    [Parameter] public Type? OptionsProviderType { get; set; }
+    [Parameter, EditorRequired] public EventCallback<object?> OnValueChanged { get; set; }
+    [Parameter] public Func<object?, string?>? Validation { get; set; }
+
+    // Typed adapters so MudBlazor's Validation prop receives a Func<T, string?> matching the field's value type.
+    private Func<string, string?>? StringValidation => Validation is null ? null : v => Validation(v);
+    private Func<int, string?>?    IntValidation    => Validation is null ? null : v => Validation(v);
+    private Func<long, string?>?   LongValidation   => Validation is null ? null : v => Validation(v);
+    private Func<double, string?>? DoubleValidation => Validation is null ? null : v => Validation(v);
+    private Func<float, string?>?  FloatValidation  => Validation is null ? null : v => Validation(v);
+
+    private bool IsReadOnly => Gate.IsReadOnly;
+
+    private bool _reveal;
+    private IReadOnlyList<ScalarOption>? _options;
+    private Type? _loadedProviderType;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (OptionsProviderType is null)
+        {
+            _options = null;
+            _loadedProviderType = null;
+            return;
+        }
+
+        if (_loadedProviderType == OptionsProviderType)
+            return;
+
+        _loadedProviderType = OptionsProviderType;
+        _options = await LoadOptionsAsync(OptionsProviderType);
+    }
+
+    /// <summary>
+    /// Returns null when the options cannot be obtained, which falls the field back to a text input
+    /// so that a broken directory never makes the configuration uneditable.
+    /// </summary>
+    private async Task<IReadOnlyList<ScalarOption>?> LoadOptionsAsync(Type providerType)
+    {
+        IScalarOptionsProvider? provider = OptionsProviders.FirstOrDefault(candidate => candidate.GetType() == providerType);
+        if (provider is null)
+        {
+            Logger.LogWarning(
+                "No scalar options provider registered for '{ProviderType}' ({Property}); falling back to a text field.",
+                providerType,
+                Property.Name);
+            return null;
+        }
+
+        try
+        {
+            return await provider.GetOptionsAsync();
+        }
+        catch (Exception exception)
+        {
+            Logger.LogWarning(
+                exception,
+                "Failed to load the options of '{Property}'; falling back to a text field.",
+                Property.Name);
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Keeps a stored value that no longer matches any option selectable and visible, so that opening
+    /// the form does not silently drop it.
+    /// </summary>
+    private IEnumerable<ScalarOption> OptionsIncluding(string currentValue)
+    {
+        IReadOnlyList<ScalarOption> options = _options ?? [];
+
+        if (!string.IsNullOrEmpty(currentValue)
+            && !options.Any(option => string.Equals(option.Value, currentValue, StringComparison.Ordinal)))
+        {
+            yield return new ScalarOption(currentValue, $"Unknown — {currentValue}");
+        }
+
+        foreach (ScalarOption option in options)
+            yield return option;
+    }
+
+    private string CurrentLabel(string selected)
+    {
+        if (string.IsNullOrEmpty(selected))
+            return "None";
+
+        ScalarOption match = OptionsIncluding(selected)
+            .FirstOrDefault(option => string.Equals(option.Value, selected, StringComparison.Ordinal));
+
+        return string.IsNullOrEmpty(match.Label) ? selected : match.Label;
+    }
+
+    private async Task OpenSelectorAsync()
+    {
+        var selected = Value as string ?? string.Empty;
+        IReadOnlyList<ScalarOption> options = [.. OptionsIncluding(selected)];
+
+        ScalarOption? result = await ScalarOptionSelectorDialog.OpenAsync(DialogService, Label, options, selected);
+        if (result is null)
+            return;
+
+        await OnOptionChanged(result.Value.Value);
+    }
+
+    private bool IsPassword =>
+        Property.GetCustomAttribute<DataTypeAttribute>()?.DataType == DataType.Password;
+
+    private bool IsMultiline =>
+        Property.GetCustomAttribute<DataTypeAttribute>()?.DataType == DataType.MultilineText;
+
+    private Type? EnumType
+    {
+        get
+        {
+            Type type = Nullable.GetUnderlyingType(Property.PropertyType) ?? Property.PropertyType;
+            return type.IsEnum ? type : null;
+        }
+    }
+
+    private void ToggleReveal() => _reveal = !_reveal;
+
+    private Task OnStringChanged(string v) => OnValueChanged.InvokeAsync(v);
+    // Clearing the selection yields null, which the domain properties do not accept.
+    private Task OnOptionChanged(string? v) => OnValueChanged.InvokeAsync(v ?? string.Empty);
+    private Task OnIntChanged(int v) => OnValueChanged.InvokeAsync(v);
+    private Task OnLongChanged(long v) => OnValueChanged.InvokeAsync(v);
+    private Task OnDoubleChanged(double v) => OnValueChanged.InvokeAsync(v);
+    private Task OnFloatChanged(float v) => OnValueChanged.InvokeAsync(v);
+    private Task OnBoolChanged(bool v) => OnValueChanged.InvokeAsync(v);
+    private Task OnObjectChanged(object v) => OnValueChanged.InvokeAsync(v);
+}
+

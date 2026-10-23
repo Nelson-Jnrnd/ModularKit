@@ -1,0 +1,65 @@
+@typeparam T
+@inject IStringLocalizer<CoreRazorUi> L
+<MudDialog >
+    <TitleContent>
+        <MudText Typo="Typo.h5">@Title</MudText>
+    </TitleContent>
+
+    <DialogContent>
+        @if (SearchTextSelector is not null)
+        {
+            <MudTextField T="string"
+                          Class="mb-3"
+                          FullWidth="true"
+                          Margin="Margin.Dense"
+                          Variant="Variant.Outlined"
+                          Placeholder="Search"
+                          Adornment="Adornment.Start"
+                          AdornmentIcon="@Icons.Material.Filled.Search"
+                          Clearable="true"
+                          Immediate="true"
+                          DebounceInterval="150"
+                          Value="_search"
+                          ValueChanged="@((string v) => _search = v ?? string.Empty)" />
+        }
+
+        <MudGrid
+            Spacing="2"
+            Justify="Justify.FlexStart">
+            @foreach (T item in FilteredItems)
+            {
+                if (item is null)
+                {
+                    continue;
+                }
+                var isSelected = Equals(item, SelectedItem);
+
+                <MudItem xs="12" sm="6" md="4" >
+                    <MudPaper
+                        Elevation="0"
+                        @onclick="(_ => OnItemCardClick(item))">
+                        <ItemCard T="T"
+                                  Item="item"
+                                  IsSelected="@(Equals(item, SelectedItem))"
+                                  HeaderTemplate="ItemHeaderTemplate"
+                                  ContentTemplate="ItemContentTemplate" />
+                    </MudPaper>
+                </MudItem>
+            }
+        </MudGrid>
+    </DialogContent>
+
+    <DialogActions>
+        <MudButton OnClick="Cancel" Variant="Variant.Outlined" Color="Color.Default">
+            @L["Cancel"]
+        </MudButton>
+        <MudButton
+            OnClick="Confirm"
+            Color="Color.Success"
+            Variant="Variant.Filled"
+            Disabled="ConfirmButtonDisabled">
+            @L["Confirm"]
+        </MudButton>
+    </DialogActions>
+</MudDialog>
+

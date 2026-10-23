@@ -1,0 +1,103 @@
+@typeparam T
+@using ModularKit.Configuration.References
+@using ModularKit.Configuration
+@inject IStringLocalizer<CoreRazorUi> L
+
+@if (ObjectToEdit is IConnectionTestable testable)
+{
+    <ConnectionTestButton Target="testable" />
+}
+
+<MudForm @ref="_form"
+    Model="@ObjectToEdit"
+    @bind-Errors="_formErrors"
+>
+
+    @if (_isNameEditable)
+    {
+        <MudTextField T="string"
+                      Class="mb-4"
+                      FullWidth="true"
+                      Margin="Margin.Dense"
+                      Variant="Variant.Outlined"
+                      Label="@L["Name"]"
+                      ReadOnly="@IsReadOnly"
+                      Value="_nameDraft"
+                      ValueChanged="CommitNameAsync"
+                      Validation="@(new Func<string, string?>(ValidateName))"
+                      Immediate="true"
+                      DebounceInterval="200" />
+    }
+
+    @if (_scalarFields.Count > 0)
+    {
+        <MudText Typo="Typo.subtitle2" Class="mb-2" Color="Color.Secondary">
+            @L["Parameters"]
+        </MudText>
+
+        <MudGrid>
+            @foreach (ConfigScalarFieldDescriptor field in _scalarFields)
+            {
+                object? value = GetValue(field);
+
+                <MudItem xs="12" sm="@field.SmColumns" md="@field.MdColumns">
+                    <ScalarField Property="field.Property"
+                                 Label="@field.DisplayName"
+                                 Value="value"
+                                 Code="@field.Code"
+                                 OptionsProviderType="field.OptionsProviderType"
+                                 OnValueChanged="CreateValueChangedCallback(field)"
+                                 Validation="@CreateValidationFor(field.Property)" />
+                </MudItem>
+            }
+        </MudGrid>
+        @if (_componentSlots.Any())
+        {
+            <MudDivider Class="my-4" />
+        }
+    }
+
+    @if (_componentSlots.Any())
+    {
+        <MudText Typo="Typo.subtitle2" Class="mb-2" Color="Color.Secondary">
+            @L["Components"]
+        </MudText>
+
+        <MudStack Spacing="2">
+            @foreach (ConfigComponentSlotDescriptor slot in _componentSlots)
+            {
+                @if (slot.Kind is ConfigComponentSlotKind.ReferenceList)
+                {
+                    <ConfigRefsListCard DisplayName="@slot.DisplayName"
+                                        Items="GetSelectedReferenceValues(slot)"
+                                        Candidates="GetCandidates(slot)"
+                                        OnItemsChanged="CreateItemsChangedCallback(slot)"
+                                        IndentLevel="@(IndentLevel + 1)"
+                                        ComponentType="slot.ComponentType" />
+                }
+                else
+                {
+                    ConfigEntity? value = GetComponentValue(slot);
+
+                    <AddComponentCard ObjectToEdit="value"
+                                      DisplayName="@slot.DisplayName"
+                                      Icon="@slot.Icon"
+                                      IsInline="@slot.IsInline"
+                                      OnOpenRequested="OnOpenRequested"
+                                      OnAddRequested="CreateAddRequestedCallback(slot)"
+                                      OnDeleteRequested="CreateDeleteRequestedCallback(slot)"
+                                      CanDelete="@slot.CanDelete"
+                                      CanReplace="@slot.CanReplace"
+                                      OnReplaceRequested="CreateReplaceRequestedCallback(slot)"
+                                      ReplaceButtonLabel="@GetReplaceActionLabel(slot)"
+                                      ReplaceButtonIcon="@GetReplaceActionIcon(slot)"
+                                      OnSelectExistingRequested="@(slot.SupportsSelectExisting ? CreateSelectExistingRequestedCallback(slot) : default)"
+                                      OnConfigChanged="NotifyConfigChangedAsync"
+                                      IndentLevel="@(IndentLevel + 1)"
+                                      DeclaredType="slot.ComponentType" />
+                }
+            }
+        </MudStack>
+    }
+</MudForm>
+

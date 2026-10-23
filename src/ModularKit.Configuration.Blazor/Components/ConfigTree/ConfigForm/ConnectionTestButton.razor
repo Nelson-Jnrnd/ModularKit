@@ -1,0 +1,26 @@
+@using ModularKit.Configuration
+
+<MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2" Class="mb-3">
+    <MudButton Variant="Variant.Outlined"
+               Color="Color.Primary"
+               StartIcon="@Icons.Material.Filled.Wifi"
+               OnClick="TestAsync"
+               Disabled="_testing">
+        @(_testing ? "Testing..." : "Test connection")
+    </MudButton>
+
+    @if (_result is { } r)
+    {
+        <MudAlert Severity="@(r.Success ? Severity.Success : Severity.Error)" Dense="true" Class="my-0 flex-grow-1">
+            @if (r.Success)
+            {
+                <text>Connected: @r.Identifier (@r.ResponseTime.TotalMilliseconds.ToString("0") ms)</text>
+            }
+            else
+            {
+                <text>Failed: @r.ErrorMessage</text>
+            }
+        </MudAlert>
+    }
+</MudStack>
+

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+  <PropertyGroup>
+    <Description>Configuration tree and generated forms for Blazor and MudBlazor.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="MudBlazor" Version="9.11.0" />
+    <ProjectReference Include="../ModularKit.Configuration/ModularKit.Configuration.csproj" />
+    <InternalsVisibleTo Include="ModularKit.Tests" />
+      <None Include="README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+</Project>

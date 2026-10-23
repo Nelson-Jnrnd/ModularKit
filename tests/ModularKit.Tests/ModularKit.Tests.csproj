@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.13" />
+    <PackageReference Include="bunit" Version="2.12.5" />
+    <ProjectReference Include="../../src/ModularKit.Configuration/ModularKit.Configuration.csproj" />
+    <ProjectReference Include="../../src/ModularKit.Configuration.Blazor/ModularKit.Configuration.Blazor.csproj" />
+    <ProjectReference Include="../../src/ModularKit.Plugins/ModularKit.Plugins.csproj" />
+    <ProjectReference Include="../../src/ModularKit.Persistence.Json/ModularKit.Persistence.Json.csproj" />
+    <ProjectReference Include="../../samples/DeviceWorkbench.Plugin/DeviceWorkbench.Plugin.csproj" />
+  </ItemGroup>
+</Project>

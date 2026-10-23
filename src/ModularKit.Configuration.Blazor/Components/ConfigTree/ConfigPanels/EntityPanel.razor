@@ -1,0 +1,8 @@
+@using ModularKit.Configuration
+@using ModularKit.Configuration.Blazor.Components.ConfigTree.ConfigForm
+@using ModularKit.Configuration.Blazor.Components.ConfigTree.ConfigNodes
+
+@inherits ConfigPanelBase<EntityConfigElement>
+
+<DynamicConfigForm ObjectToEdit="Model" OnConfigChanged="NotifyConfigChangedAsync" OnOpenRequested="OnOpenRequested" />
+

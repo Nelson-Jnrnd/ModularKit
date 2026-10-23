@@ -1,0 +1,12 @@
+<MudTreeView Items="TreeItems"
+             SelectionMode="SelectionMode.SingleSelection"
+             @bind-SelectedValue="SelectedRelay">
+    <ItemTemplate>
+        <MudTreeViewItem Text="@context.Text"
+                         Icon="@context.Icon"
+                         Items="@context.Children"
+                         Value="@context.Value"
+                         Expanded=@context.Expanded />
+    </ItemTemplate>
+</MudTreeView>
+
