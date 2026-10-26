@@ -2,6 +2,8 @@
 
 A local demonstration of the four libraries without greenhouse code or hardware access.
 
+See the [UI tour](../../docs/blazor-ui.md) for screenshots of the sample and its configuration components.
+
 ```sh
 dotnet run --project samples/DeviceWorkbench --urls http://localhost:5080
 ```

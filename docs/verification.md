@@ -10,6 +10,7 @@ Verified locally on Linux with .NET SDK 10.0.402.
 | External package consumer | Restored all four local packages, compiled, saved/reloaded a configuration and created an editor tree node |
 | Sample host | Started and loaded the separately staged sensor plugin |
 | Sample HTTP response and static assets | Homepage, MudBlazor CSS/JavaScript and Blazor JavaScript returned HTTP 200 |
+| Browser smoke checks | Settings navigation, plugin and reference dialogs, save/reload, and invalid numeric input verified in Chromium |
 | Markdown links | Passed `scripts/check_docs.py` |
 | Mermaid syntax | All five diagrams parsed with Mermaid 11 |
 
@@ -17,6 +18,6 @@ The tests include references and required associations, configuration/state filt
 
 The CI workflow runs build, tests, documentation link checks and packaging on Linux and Windows. These are configured checks; local Linux results alone do not establish the Windows outcome.
 
-Browser-driven interaction and accessibility testing have not been completed. Automated component rendering, input editing and host HTTP checks were completed. The environment's browser download failed, so this report does not claim a full browser end-to-end pass.
+The [UI tour](blazor-ui.md) contains screenshots from the running sample. Browser smoke checks covered settings navigation, selecting a plugin type, selecting and persisting a reference, reloading configuration, and displaying a numeric range error. These checks do not replace a full browser compatibility or accessibility review.
 
 Applications adopting these packages should validate their own saved files and integration behaviour. Follow the [compatibility guide](compatibility.md) when changing persisted types or paths.

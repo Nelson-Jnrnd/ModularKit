@@ -2,6 +2,8 @@
 
 `ModularKit.Configuration.Blazor` provides tree navigation, form descriptors, scalar fields, component cards, selection dialogs and reference-selection workflows. It targets .NET 10 with MudBlazor 9. The supplied sample uses interactive server rendering.
 
+See the [UI tour with screenshots](blazor-ui.md) for the generated form, plugin picker, reference selector and validation feedback.
+
 ## Register services
 
 ```csharp

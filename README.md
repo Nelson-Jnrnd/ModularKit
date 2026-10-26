@@ -15,6 +15,14 @@ Targets **.NET 10**; the editor uses **Blazor Server and MudBlazor 9**. This is 
 
 Install only what your application uses. Configuration and persistence work without plugins or a web interface.
 
+## Blazor UI
+
+The editor provides a configuration tree and forms generated from your C# model. Select an object to edit its fields, choose a plugin implementation when adding a component, or link an existing object through a selection dialog.
+
+![Configuration tree and generated settings form in the Blazor editor](docs/images/blazor-editor.png)
+
+See the [UI tour](docs/blazor-ui.md) for plugin selection, object references and validation screens. These screenshots show the running [DeviceWorkbench sample](samples/DeviceWorkbench/README.md).
+
 ## Try it
 
 Install a .NET 10 SDK, then run from the repository root:
