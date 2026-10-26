@@ -65,7 +65,6 @@ Your normal NuGet source must also be configured to restore third-party dependen
 - [JSON persistence](docs/persistence.md): writes, backups, cancellation and limits.
 - [Compatibility](docs/compatibility.md): preserving saved configurations when updating applications.
 - [Verification](docs/verification.md): checks performed and remaining validation.
-- [Contributing](CONTRIBUTING.md): development and validation commands.
 
 ## Scope
 
