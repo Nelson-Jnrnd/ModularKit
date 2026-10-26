@@ -59,6 +59,18 @@ public class EditorTests
         Assert.Same(sensor,tree.FindInChildren(sensor)!.Data);
     }
 
+    [Fact]
+    public void Collection_icon_overrides_item_icon_and_subtypes_inherit_device_icon()
+    {
+        var sensor = new TcpSensor { Name = "Sensor" };
+        var model = new Workbench { Name = "Workbench", Devices = [sensor] };
+        model.WireUp(null);
+        var tree = new EntityConfigElement(model);
+        Assert.Equal(MudBlazor.Icons.Material.Filled.Hub, tree.Icon);
+        Assert.Equal(MudBlazor.Icons.Material.Filled.DevicesOther, Assert.Single(tree.Children).Icon);
+        Assert.Equal(MudBlazor.Icons.Material.Filled.Sensors, tree.FindInChildren(sensor)!.Icon);
+    }
+
     private sealed class EmptyCatalog : IConfigTypeCatalog
     {
         public IReadOnlyList<ConfigTypeOption> GetTypeOptions(Type baseType) => [];

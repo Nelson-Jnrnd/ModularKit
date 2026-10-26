@@ -45,6 +45,19 @@ Cascade a `ConfigEditGate` when the host restricts editing:
 
 The gate takes `Func<bool> isReadOnly` and `Func<Task<bool>> beginEdit`. Controls use both display state and a check before mutation. The default is unrestricted. This is a UI integration point, not a replacement for authorization of server operations or a multi-user concurrency lock.
 
+## Theme and icons
+
+The editor uses the host application's `MudThemeProvider`. The [sample theme](../samples/DeviceWorkbench/Theme/WorkbenchTheme.cs) defines a blue and slate palette, typography and corner radius. Its [stylesheet](../samples/DeviceWorkbench/wwwroot/workbench.css) adds the responsive page layout and component spacing.
+
+Assign semantic icons with `ConfigTreeIcon` from `ModularKit.Configuration.View`:
+
+```csharp
+[ConfigTreeIcon("Sensors")]
+public abstract class Device : ConfigEntity { }
+```
+
+The key is the name of a MudBlazor Material Filled icon. Concrete implementations inherit the icon from their base class. Put an icon attribute on a collection property to override its item type's icon in the navigation tree; the sample uses `DevicesOther` for its device collection and `Hub` for the workbench root. Reference properties can use their own icon, such as `Link`.
+
 ## What is generated
 
 - Scalar fields: strings, int, long, float, double, bool, enums, and supported nullable forms.

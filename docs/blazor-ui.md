@@ -28,6 +28,15 @@ Field validation displays errors beside the input. Here, a port value of zero vi
 
 ## Try the screens
 
+The sample adapts to narrow screens by stacking navigation above the settings form.
+
+<details>
+<summary>View the mobile layout</summary>
+
+![Mobile layout with navigation above the device settings](images/blazor-mobile.png)
+
+</details>
+
 ```sh
 dotnet run --project samples/DeviceWorkbench --urls http://localhost:5080
 ```

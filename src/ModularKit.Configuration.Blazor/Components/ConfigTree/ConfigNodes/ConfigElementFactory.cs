@@ -71,7 +71,8 @@ internal static class ConfigElementFactory
                     ChildKind.Collection,
                     listItemType,
                     propertyDisplayName,
-                    ConfigTreeIconResolver.Resolve(listItemType)));
+                    ConfigTreeIconResolver.ResolveFromProperty(property, listItemType)
+                        ?? ConfigTreeIconResolver.Resolve(listItemType)));
                 continue;
             }
 

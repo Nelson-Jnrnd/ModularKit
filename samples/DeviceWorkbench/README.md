@@ -27,6 +27,8 @@ Run from the repository root and open `http://localhost:5080`.
 
 The host has a build dependency on the plugin to stage its DLL, but does not reference that DLL as a compile-time assembly. It loads `plugins/DeviceWorkbench.Plugin.dll` through ModularKit. Build and publish targets both copy the DLL to the expected directory.
 
+The host supplies its theme, responsive layout and Material icons. The device collection is edited through the navigation tree rather than duplicated in the root object's generated form. See the [theme and icon guide](../../docs/editor.md#theme-and-icons) to adapt the appearance in another application.
+
 Configuration is saved under `samples/DeviceWorkbench/storage/workbench.json` when run from the source tree. A replacement retains `workbench.json.bak`. Storage is ignored by Git. Errors are displayed rather than silently replacing an unreadable file with defaults.
 
 This example is intended for one local user. Each circuit edits its own in-memory model, while saves use the same file; simultaneous sessions require a host concurrency policy. It has no authentication and no network-device operations. Do not use the sample as an externally exposed administration service.

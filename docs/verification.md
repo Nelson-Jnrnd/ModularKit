@@ -5,12 +5,12 @@ Verified locally on Linux with .NET SDK 10.0.402.
 | Check | Result |
 | --- | --- |
 | Release build of libraries, sample and tests | Passed; no warnings or errors |
-| Automated tests | 28 passed, none failed or skipped |
+| Automated tests | 29 passed, none failed or skipped |
 | NuGet packaging | Four independent preview packages produced, each with its README |
 | External package consumer | Restored all four local packages, compiled, saved/reloaded a configuration and created an editor tree node |
 | Sample host | Started and loaded the separately staged sensor plugin |
 | Sample HTTP response and static assets | Homepage, MudBlazor CSS/JavaScript and Blazor JavaScript returned HTTP 200 |
-| Browser smoke checks | Settings navigation, plugin and reference dialogs, save/reload, and invalid numeric input verified in Chromium |
+| Browser smoke checks | Settings navigation, plugin and reference dialogs, save/reload, invalid numeric input, and a narrow viewport without horizontal overflow verified in Chromium |
 | Markdown links | Passed `scripts/check_docs.py` |
 | Mermaid syntax | All five diagrams parsed with Mermaid 11 |
 

@@ -9,35 +9,57 @@
 @inject IWebHostEnvironment Environment
 @inject ExamplePluginInfo PluginInfo
 
-<PageTitle>Device workbench</PageTitle>
-<MudThemeProvider />
+@using DeviceWorkbench.Theme
+
+<PageTitle>Device workbench · ModularKit</PageTitle>
+<MudThemeProvider Theme="WorkbenchTheme.Value" />
 <MudPopoverProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
-<main style="max-width:1100px;margin:32px auto;padding:0 20px">
-    <h1>Device workbench</h1>
-    <p>Add a device supplied by a separately loaded plugin, edit its settings, then save and reload.</p>
-    <p>@PluginInfo.Label</p>
-    @if (_error is not null)
-    {
-        <MudAlert Severity="Severity.Error">@_error</MudAlert>
-    }
-    @if (_root is not null)
-    {
-        <MudButton OnClick="SaveAsync" Variant="Variant.Filled" Disabled="_saving">Save</MudButton>
-        <MudButton OnClick="ReloadAsync" Disabled="_saving">Reload</MudButton>
-        <MudText Typo="Typo.body2" role="status">@_status</MudText>
-        <MudGrid Spacing="4" Class="mt-4">
-            <MudItem xs="12" md="4">
-                <ConfigurationTree Root="_root" @bind-SelectedItem="_selected" />
-            </MudItem>
-            <MudItem xs="12" md="8">
-                <ConfigurationPanelContainer SelectedItem="_selected" OnConfigChanged="Refresh"
-                    OnItemAdded="SelectAdded" OnItemDeleted="Deleted" OnOpenRequested="Open" />
-            </MudItem>
-        </MudGrid>
-    }
-</main>
+<div class="workbench-page">
+    <main class="workbench-shell">
+        <header class="workbench-header">
+            <div class="workbench-brand">
+                <MudIcon Icon="@Icons.Material.Filled.Hub" />
+                <span>ModularKit</span>
+                <span class="workbench-example">Example</span>
+            </div>
+            <h1>Device workbench</h1>
+            <p>Configure your devices, connections and references.</p>
+        </header>
+        @if (_error is not null)
+        {
+            <MudAlert Severity="Severity.Error" Class="mb-4">@_error</MudAlert>
+        }
+        @if (_root is not null)
+        {
+            <div class="workbench-toolbar">
+                <div class="workbench-status" role="status">
+                    <MudIcon Icon="@(_status == "Unsaved changes." ? Icons.Material.Outlined.Edit : Icons.Material.Outlined.CheckCircle)" Size="Size.Small" />
+                    <span>@_status</span>
+                </div>
+                <div class="workbench-actions">
+                    <MudButton OnClick="ReloadAsync" Variant="Variant.Outlined" StartIcon="@Icons.Material.Outlined.Refresh" Disabled="_saving">Reload</MudButton>
+                    <MudButton OnClick="SaveAsync" Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Outlined.Save" DropShadow="false" Disabled="_saving">Save</MudButton>
+                </div>
+            </div>
+            <div class="workbench-editor">
+                <aside class="workbench-navigation" aria-label="Configuration tree">
+                    <div class="workbench-navigation-title">Configuration</div>
+                    <ConfigurationTree Root="_root" @bind-SelectedItem="_selected" />
+                </aside>
+                <section class="workbench-details" aria-label="Configuration details">
+                    <ConfigurationPanelContainer SelectedItem="_selected" OnConfigChanged="Refresh"
+                        OnItemAdded="SelectAdded" OnItemDeleted="Deleted" OnOpenRequested="Open" />
+                </section>
+            </div>
+            <footer class="workbench-footer">
+                <MudIcon Icon="@Icons.Material.Outlined.Extension" Size="Size.Small" />
+                <span>@PluginInfo.Label</span>
+            </footer>
+        }
+    </main>
+</div>
 
 @code {
     private Workbench _model = new() { Name = "Workbench" };
