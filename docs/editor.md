@@ -1,6 +1,6 @@
 # Blazor configuration editor
 
-`ModularKit.Configuration.Blazor` extracts the existing tree, form descriptors, scalar fields, component cards, selection dialogs and reference-selection workflows. It targets .NET 10 with MudBlazor 9. The supplied sample uses interactive server rendering.
+`ModularKit.Configuration.Blazor` provides tree navigation, form descriptors, scalar fields, component cards, selection dialogs and reference-selection workflows. It targets .NET 10 with MudBlazor 9. The supplied sample uses interactive server rendering.
 
 ## Register services
 

@@ -75,4 +75,4 @@ string stateJson = JsonSerializer.Serialize(root, options.State);
 
 Both types and properties must have the matching topic. Unmarked members are omitted; an unmarked object's properties become empty. This is deliberate opt-in serialization, not general-purpose DTO serialization. Use plain `JsonSerializerOptions` when that filtering is unwanted.
 
-The serializer checks nullable annotations and required direct component associations. Attribute filtering relies on reflection. Configuration types should have public writable properties supported by System.Text.Json. See the [migration guide](softponics-migration.md) before changing persisted identifiers or paths.
+The serializer checks nullable annotations and required direct component associations. Attribute filtering relies on reflection. Configuration types should have public writable properties supported by System.Text.Json. See the [compatibility guide](compatibility.md) before changing persisted identifiers or paths.

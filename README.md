@@ -2,7 +2,7 @@
 
 Reusable .NET libraries for applications that load plugins and let users configure connected objects.
 
-Extracted from Softponics and separated from its greenhouse, machine-control, identity and database code. Targets **.NET 10**; the editor uses **Blazor Server and MudBlazor 9**. This is an initial preview, with independently packable libraries. Packages have not been published to NuGet.org.
+Targets **.NET 10**; the editor uses **Blazor Server and MudBlazor 9**. This is an initial preview, with independently packable libraries. Packages have not been published to NuGet.org.
 
 ## Libraries
 
@@ -55,11 +55,10 @@ Your normal NuGet source must also be configured to restore third-party dependen
 - [Configuration](docs/configuration.md): model attributes, references and lifecycle.
 - [Blazor editor](docs/editor.md): host setup, edit permissions and validation.
 - [JSON persistence](docs/persistence.md): writes, backups, cancellation and limits.
-- [Softponics migration](docs/softponics-migration.md): compatibility rules and remaining integration work.
-- [Extraction provenance](docs/provenance.md): source revision and adaptation record.
+- [Compatibility](docs/compatibility.md): preserving saved configurations when updating applications.
 - [Verification](docs/verification.md): checks performed and remaining validation.
 - [Contributing](CONTRIBUTING.md): development and validation commands.
 
 ## Scope
 
-Plugin assemblies are trusted application code loaded at startup. There is no sandbox, hot reload or dependency-version isolation. The sample is a local, single-user demonstration; it does not implement authentication or concurrent editing. Existing Softponics installations continue to use their original code until a separate migration is validated.
+Plugin assemblies are trusted application code loaded at startup. There is no sandbox, hot reload or dependency-version isolation. The sample is a local, single-user demonstration; it does not implement authentication or concurrent editing.

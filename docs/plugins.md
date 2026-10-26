@@ -47,7 +47,7 @@ services.AddModularKitPlugins(configuration, options =>
 | `SettingsSectionPath` | Defaults to `Plugins:Settings` |
 | `TypeAliases` | Extra persisted identifiers accepted on reads; canonical identifiers remain unchanged |
 
-Only implementations in loaded, known, or base-type assemblies are registered. Reflection-load errors, missing DLLs, duplicate plugin IDs, ambiguous type identifiers and configuration errors stop registration. This differs from Softponics' previous log-and-continue loader: a partially configured application should be an explicit host decision.
+Only implementations in loaded, known, or base-type assemblies are registered. Reflection-load errors, missing DLLs, duplicate plugin IDs, ambiguous type identifiers and configuration errors stop registration. Starting a partially configured application should be an explicit host decision.
 
 ## Choose and create an implementation
 
@@ -69,7 +69,7 @@ The manager is resolved transiently over a shared startup registry. Resolve it f
 public sealed class TcpDevice : Device { }
 ```
 
-The registry writes `$type` with this identifier. Without the attribute it uses `Type.FullName`, matching the original algorithm. Renaming a namespace then requires an explicit read alias. Aliases do not create duplicate choices in the editor and do not change what is written.
+The registry writes `$type` with this identifier. Without the attribute it uses `Type.FullName`. Renaming a namespace then requires an explicit read alias. Aliases do not create duplicate choices in the editor and do not change what is written.
 
 ```json
 {
@@ -88,4 +88,4 @@ Use `IPluginManager.BaseJsonSerializerOptions` for ordinary polymorphic JSON. If
 - Deploy plugin dependencies so the runtime can resolve them; arbitrary isolated dependency trees are not supported by this loader. The sample plugin needs only assemblies already referenced by its host.
 - No runtime API compatibility negotiation is implemented. Build and test plugins against the same ModularKit and shared-contract versions as the host.
 - Trimming and Native AOT are not supported for reflection-discovered types.
-- Call `AddModularKitPlugins` once before building the service provider. `Initialize()` remains an idempotent compatibility method; it does not rescan assemblies.
+- Call `AddModularKitPlugins` once before building the service provider. `Initialize()` is idempotent; it does not rescan assemblies.

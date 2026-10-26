@@ -1,6 +1,6 @@
 # Contributing
 
-Use the .NET 10 SDK selected by `global.json`. No hardware, database or Softponics checkout is required.
+Use the .NET 10 SDK selected by `global.json`. No hardware, database or external application checkout is required.
 
 ```sh
 dotnet restore ModularKit.slnx
@@ -21,7 +21,7 @@ python scripts/check_docs.py
 
 ## Validation
 
-The tests exercise plugin assembly loading and service configuration, aliases and unknown types, reference integrity and renaming, topic filtering, persistence replacement/cancellation and editor rendering. The sample builds an independently staged plugin, demonstrating that the libraries do not require Softponics.
+The tests exercise plugin assembly loading and service configuration, aliases and unknown types, reference integrity and renaming, topic filtering, persistence replacement/cancellation and editor rendering. The sample builds an independently staged plugin and demonstrates the libraries working together in a standalone application.
 
 For an editor change, run the sample and check add, edit, required fields, duplicate host/port combinations, reference selection, deletion restrictions, save and reload. Automated rendering checks do not replace a full browser accessibility review.
 

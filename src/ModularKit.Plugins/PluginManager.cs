@@ -27,7 +27,7 @@ internal sealed class PluginManager : IPluginManager
         }
     }
 
-    /// <summary>The registry is initialized at registration time; this method is idempotent for migrated callers.</summary>
+    /// <summary>The registry is initialized at registration time; this method is idempotent.</summary>
     public void Initialize() { }
 
     public IReadOnlyList<PluginTypeOption> GetTypeOptions(Type baseType) =>

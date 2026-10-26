@@ -1,6 +1,5 @@
-"""Check local Markdown links and extraction destinations using only the Python standard library."""
+"""Check local Markdown links using only the Python standard library."""
 from pathlib import Path
-import json
 import re
 
 root = Path(__file__).resolve().parent.parent
@@ -14,9 +13,6 @@ for path in root.rglob("*.md"):
         target = target.split("#", 1)[0]
         if target and not (path.parent / target).exists():
             failures.append(f"{path.relative_to(root)}: missing link {target}")
-for item in json.loads((root / "docs/extraction-manifest.json").read_text())["files"]:
-    if not (root / item["destination"]).is_file():
-        failures.append(f"Missing extraction destination: {item['destination']}")
 if failures:
     raise SystemExit("\n".join(failures))
-print("Markdown links and extraction destinations are valid.")
+print("Markdown links are valid.")

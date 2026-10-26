@@ -13,7 +13,7 @@ namespace ModularKit.Configuration;
 [SerializationTopic(SerializationTopics.State)]
 public abstract class ConfigEntity
 {
-    // Promoted to public to allow UI validation (DynamicConfigForm.CreateValidationFor)
+    // Shared with UI validation (DynamicConfigForm.CreateValidationFor)
     // to surface the same rule the setter enforces, without duplicating the character set.
     public static readonly char[] InvalidNameCharacters = ['/', ',', '|'];
 
