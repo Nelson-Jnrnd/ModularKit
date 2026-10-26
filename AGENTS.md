@@ -1,9 +1,17 @@
 # Repository instructions
 
-Read README.md and docs/architecture.md before implementation.
+Read README.md and docs/architecture.md.
 
-Maintain the package boundaries documented there. Generic libraries must not import application-specific models or storage configuration. Document compatibility changes in docs/compatibility.md.
+- Keep Plugins, Configuration and Persistence.Json independent. Blazor references Configuration; adapters belong in hosts.
+- Keep application models out of generic libraries. Preserve saved identifiers, member names and reference paths.
+- Document compatibility changes in library guides. Keep explanations concise, with Mermaid UML and actual UI screenshots.
+- Cover behaviour changes with regression tests; check editor changes in DeviceWorkbench.
 
-Use the build/test/pack commands in README.md and run `python scripts/check_docs.py`. Validate generated forms against the DeviceWorkbench sample and add meaningful regression coverage for changed persistence or reference behaviour. Documentation uses plain explanations and Mermaid UML diagrams that GitHub can render.
+```sh
+dotnet build ModularKit.slnx -c Release
+dotnet test ModularKit.slnx -c Release --no-build
+dotnet pack ModularKit.slnx -c Release --no-build -o artifacts/packages
+python scripts/check_docs.py
+```
 
-Do not publish packages, introduce a license grant, or change consumer installations as part of routine library work. Repository changes requested by the user can be committed and proposed normally.
+Publish packages or change consumer installations only when requested.

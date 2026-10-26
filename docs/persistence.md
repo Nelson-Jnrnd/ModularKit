@@ -1,14 +1,22 @@
 # JSON persistence
 
-`ModularKit.Persistence.Json` accepts any class and caller-supplied `JsonSerializerOptions`. It does not depend on configuration models, plugins or ASP.NET Core.
+`ModularKit.Persistence.Json` stores any class with caller-supplied `JsonSerializerOptions`, independently of the other packages.
 
 ```csharp
-IJsonFileStore store = new JsonFileStore(loggerFactory);
-await store.SaveAsync(model, new FileInfo("storage/config.json"), options, cancellationToken);
-var loaded = await store.LoadAsync<MyConfig>(new FileInfo("storage/config.json"), options, cancellationToken);
+using System.Text.Json;
+using Microsoft.Extensions.Logging.Abstractions;
+using ModularKit.Persistence.Json;
+
+IJsonFileStore store = new JsonFileStore(NullLoggerFactory.Instance);
+var file = new FileInfo("storage/settings.json");
+var options = new JsonSerializerOptions { WriteIndented = true };
+await store.SaveAsync(new Settings("localhost"), file, options, CancellationToken.None);
+var loaded = await store.LoadAsync<Settings>(file, options, CancellationToken.None);
+
+public sealed record Settings(string Host);
 ```
 
-Register it in DI with `services.AddSingleton<IJsonFileStore, JsonFileStore>()` when a logger factory is available.
+For DI, register `services.AddSingleton<IJsonFileStore, JsonFileStore>()` with a logger factory available.
 
 ## Write lifecycle
 
@@ -30,19 +38,12 @@ sequenceDiagram
     Store-->>Caller: Complete or report failure
 ```
 
-The store creates the parent directory. A temporary file is written beside the target, then flushed before replacement. On replacement the previous target becomes `<filename>.bak`. A failed serialization or cancelled write before replacement leaves the old target intact; temporary-file cleanup runs in `finally`.
+Parent directories are created automatically. Replacement keeps the previous file as `<filename>.bak`. Failed serialization or cancellation before replacement leaves the old target intact.
 
-## Errors and cancellation
+## Errors and limits
 
-- Read failures caused by IO or JSON parsing are wrapped in `ApplicationException`, retaining the original exception.
-- Write failures caused by IO, JSON parsing or access permissions are wrapped in `ApplicationException`.
-- Cancellation propagates as `OperationCanceledException`.
-- File replacement is synchronous. Cancellation arriving after replacement starts cannot roll it back.
-- A missing file is an error; the caller decides whether to create defaults.
-- Backup recovery is explicit. The library never silently falls back to `.bak` or resets a corrupt configuration.
-
-## Limits
-
-This is a single-file store, not a transaction system. It does not coordinate concurrent writers, enforce expected versions, encrypt secrets, migrate schemas, impose size limits or rotate backups. Serializing the object and reading a file both use memory proportional to JSON size. Coordinate writes and object access in the host.
-
-Replacement semantics depend on the operating system and filesystem. A local filesystem on the same volume is the intended use. A flushed temporary file and replacement do not constitute a guarantee against every power-loss scenario or provide database-grade durability. Network shares need their own validation.
+- Read IO/JSON failures and write IO/JSON/access failures are wrapped in `ApplicationException`, preserving the cause. Cancellation propagates as `OperationCanceledException`.
+- Replacement is synchronous; cancellation cannot roll it back once started.
+- Missing or corrupt files are errors. Defaults and backup recovery are explicit host decisions.
+- The host coordinates concurrent writers, model validation and schema upgrades. The store provides no version checks, encryption, size limits or backup rotation.
+- Reads and serialization use memory proportional to JSON size. Replacement is intended for a local filesystem on the same volume; network shares and power-loss durability need separate validation.

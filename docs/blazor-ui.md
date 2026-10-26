@@ -1,46 +1,38 @@
 # Blazor UI
 
-`ModularKit.Configuration.Blazor` provides a configuration editor for Blazor applications using MudBlazor. The screens below come from the DeviceWorkbench sample, using two example sensors. The sample supplies the page layout and save/reload buttons; the library supplies the tree, forms and dialogs.
+Screens from the [DeviceWorkbench sample](../samples/DeviceWorkbench/README.md). The host provides the page layout and save/reload actions; ModularKit provides the configuration components.
 
-## Browse and edit configuration
+## Browse and edit
 
-Select an object in the tree to display its settings. The editor generates the name, host and numeric fields from the C# model and its attributes.
+Select an object in the tree to edit fields generated from its C# model.
 
-![Tree navigation with the Weather station settings form](images/blazor-editor.png)
+![Tree navigation and device settings](images/blazor-editor.png)
 
-## Choose a component implementation
+## Choose an implementation
 
-When adding an abstract component, choose one of the implementations supplied by the host's type catalog. This sample loads a TCP sensor implementation from a separate plugin assembly.
+Pick a component implementation supplied by the host's type catalog.
 
-![Plugin selection dialog with the TCP sensor implementation selected](images/blazor-plugin-picker.png)
+![TCP sensor selected in the implementation picker](images/blazor-plugin-picker.png)
 
-## Reference an existing object
+## Link an existing object
 
-Select an existing device instead of creating another copy. The dialog shows each object's name, type and path to distinguish similar items.
+Names, types and paths distinguish available reference targets.
 
-![Reference selection dialog listing Weather station and Room sensor](images/blazor-reference-picker.png)
+![Reference picker with two devices](images/blazor-reference-picker.png)
 
-## Validate field values
+## Validate input
 
-Field validation displays errors beside the input. Here, a port value of zero violates the sample model's allowed range of 1 to 65535.
+Model attributes provide field validation; this port value is outside the allowed range.
 
-![Generated form showing the allowed-range error for an invalid port value](images/blazor-validation.png)
-
-## Try the screens
-
-The sample adapts to narrow screens by stacking navigation above the settings form.
+![Numeric range validation beside the field](images/blazor-validation.png)
 
 <details>
-<summary>View the mobile layout</summary>
+<summary>Mobile layout</summary>
 
-![Mobile layout with navigation above the device settings](images/blazor-mobile.png)
+Navigation stacks above the settings form on narrow screens.
+
+![Mobile navigation and settings](images/blazor-mobile.png)
 
 </details>
 
-```sh
-dotnet run --project samples/DeviceWorkbench --urls http://localhost:5080
-```
-
-Open `http://localhost:5080`, select **Devices** and add a **TCP sensor**. Create a second sensor to try the existing-object selector. The screenshots use the example names **Weather station** and **Room sensor**, with documentation addresses `192.0.2.10` and `192.0.2.11`. The sample does not connect to these addresses.
-
-See the [sample guide](../samples/DeviceWorkbench/README.md) for save/reload steps and the [editor guide](editor.md) to integrate these components into your own application.
+See the [sample guide](../samples/DeviceWorkbench/README.md) to run it, or the [editor guide](editor.md) to integrate the components.

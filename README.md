@@ -1,71 +1,42 @@
 # ModularKit
 
-Reusable .NET libraries for applications that load plugins and let users configure connected objects.
-
-Targets **.NET 10**; the editor uses **Blazor Server and MudBlazor 9**. This is an initial preview, with independently packable libraries. Packages have not been published to NuGet.org.
+.NET libraries for loading plugins, configuring connected objects and saving JSON. Targets **.NET 10**; the optional editor uses **Blazor Server and MudBlazor 9**.
 
 ## Libraries
 
-| Library | Provides | Other ModularKit dependencies |
+| Library | Provides | ModularKit dependencies |
 | --- | --- | --- |
-| [ModularKit.Plugins](docs/plugins.md) | Startup assembly loading, service registration, implementation selection, polymorphic JSON | None |
-| [ModularKit.Configuration](docs/configuration.md) | Configuration tree, object references, validation metadata, configuration/state JSON selection | None |
-| [ModularKit.Configuration.Blazor](docs/editor.md) | Tree navigation, generated forms, creation and selection dialogs | Configuration |
-| [ModularKit.Persistence.Json](docs/persistence.md) | JSON file reads, temporary writes, replacement and backup | None |
+| [ModularKit.Plugins](docs/plugins.md) | Plugin loading, service registration and polymorphic JSON | None |
+| [ModularKit.Configuration](docs/configuration.md) | Configuration trees, references and serialization metadata | None |
+| [ModularKit.Configuration.Blazor](docs/editor.md) | Generated forms, tree navigation and selection dialogs | Configuration |
+| [ModularKit.Persistence.Json](docs/persistence.md) | JSON file storage with replacement and backups | None |
 
-Install only what your application uses. Configuration and persistence work without plugins or a web interface.
+Use each library independently or combine them in your application. Packages are currently a preview and have not been published to NuGet.org; use project references or build local packages with `dotnet pack ModularKit.slnx -c Release -o artifacts/packages`.
 
 ## Blazor UI
 
-The editor provides a configuration tree and forms generated from your C# model. Select an object to edit its fields, choose a plugin implementation when adding a component, or link an existing object through a selection dialog.
+Browse objects, edit generated fields, choose component implementations and link existing objects.
 
-![Configuration tree and generated settings form in the Blazor editor](docs/images/blazor-editor.png)
+![Configuration tree and generated settings form](docs/images/blazor-editor.png)
 
-See the [UI tour](docs/blazor-ui.md) for plugin selection, object references and validation screens. These screenshots show the running [DeviceWorkbench sample](samples/DeviceWorkbench/README.md).
+[View the UI tour](docs/blazor-ui.md), including dialogs, validation and mobile layout.
 
-## Try it
+## Run the example
 
-Install a .NET 10 SDK, then run from the repository root:
+With a .NET 10 SDK installed, run from the repository root:
 
 ```sh
-dotnet restore ModularKit.slnx
-dotnet build ModularKit.slnx -c Release --no-restore
-dotnet test ModularKit.slnx -c Release --no-build
 dotnet run --project samples/DeviceWorkbench --urls http://localhost:5080
 ```
 
-Open `http://localhost:5080`. Select **Devices**, add a **TCP sensor**, edit its host and port, select it through **Selected device**, then save and reload. The sensor implementation comes from a separate DLL staged into the application's `plugins` directory. Nothing connects to real hardware.
-
-The [sample guide](samples/DeviceWorkbench/README.md) explains the host, plugin, shared contracts and storage location.
-
-## Use in another solution
-
-For source-based development:
-
-```sh
-dotnet add YourApp/YourApp.csproj reference path/to/ModularKit/src/ModularKit.Plugins/ModularKit.Plugins.csproj
-```
-
-Or build local packages:
-
-```sh
-dotnet pack ModularKit.slnx -c Release -o artifacts/packages
-dotnet add YourApp/YourApp.csproj package ModularKit.Plugins --version 0.1.0-preview.1 --source path/to/ModularKit/artifacts/packages
-```
-
-Your normal NuGet source must also be configured to restore third-party dependencies. Package IDs and APIs are preview contracts and may change before 1.0.
+Open `http://localhost:5080`. The [sample guide](samples/DeviceWorkbench/README.md) covers the workflow, project layout and storage.
 
 ## Documentation
 
-- [Getting started](docs/getting-started.md): the smallest useful examples.
-- [Architecture](docs/architecture.md): package boundaries and Mermaid UML diagrams.
-- [Plugins](docs/plugins.md): loading, registration, type identifiers and deployment.
-- [Configuration](docs/configuration.md): model attributes, references and lifecycle.
-- [Blazor editor](docs/editor.md): host setup, edit permissions and validation.
-- [JSON persistence](docs/persistence.md): writes, backups, cancellation and limits.
-- [Compatibility](docs/compatibility.md): preserving saved configurations when updating applications.
-- [Verification](docs/verification.md): checks performed and remaining validation.
+- [Architecture and UML](docs/architecture.md)
+- [Plugin setup and type identifiers](docs/plugins.md)
+- [Configuration models and references](docs/configuration.md)
+- [Blazor integration, theme and icons](docs/editor.md)
+- [JSON persistence](docs/persistence.md)
 
-## Scope
-
-Plugin assemblies are trusted application code loaded at startup. There is no sandbox, hot reload or dependency-version isolation. The sample is a local, single-user demonstration; it does not implement authentication or concurrent editing.
+Plugins are trusted code loaded at startup; unloading and dependency-version isolation are not supported. The sample is intended for one local user.

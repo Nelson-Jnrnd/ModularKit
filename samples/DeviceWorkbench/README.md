@@ -1,34 +1,35 @@
 # Device workbench
 
-A local demonstration of the four libraries without greenhouse code or hardware access.
+A local example combining all four libraries. See the [UI tour](../../docs/blazor-ui.md) for screenshots.
 
-See the [UI tour](../../docs/blazor-ui.md) for screenshots of the sample and its configuration components.
+## Run
+
+From the repository root with a .NET 10 SDK:
 
 ```sh
 dotnet run --project samples/DeviceWorkbench --urls http://localhost:5080
 ```
 
-Run from the repository root and open `http://localhost:5080`.
+Open `http://localhost:5080`.
 
-1. Select **Devices** and add a **TCP sensor**.
-2. Set its host and port. A second sensor using the same pair should fail editor uniqueness validation.
-3. Select the workbench root and choose a **Selected device** reference.
-4. Save, reload, and confirm the device values and selection persist.
-5. Rename the device, save and reload again. Its reference follows the new path.
-6. A referenced device cannot be deleted until its reference is removed.
+1. Select **Devices**, add a **TCP sensor**, and set its host and port.
+2. Add another sensor to try duplicate host/port validation.
+3. Select the root and choose a **Selected device** reference.
+4. Save and reload; rename the referenced device and repeat to check path updates.
+5. Remove the reference before deleting that device.
 
 ## Projects
 
 | Project | Purpose |
 | --- | --- |
-| DeviceWorkbench.Contracts | Shared `Workbench`, abstract `Device` and plugin information contract |
-| DeviceWorkbench.Plugin | Concrete `TcpSensor`, stable type ID and plugin service registration |
-| DeviceWorkbench | Blazor host, configuration/plugin adapter and save/reload integration |
+| DeviceWorkbench.Contracts | Shared model and plugin information contract |
+| DeviceWorkbench.Plugin | TCP sensor implementation and service registration |
+| DeviceWorkbench | Blazor host, type-catalog adapter and persistence |
 
-The host has a build dependency on the plugin to stage its DLL, but does not reference that DLL as a compile-time assembly. It loads `plugins/DeviceWorkbench.Plugin.dll` through ModularKit. Build and publish targets both copy the DLL to the expected directory.
+Build and publish stage the plugin DLL under `plugins/`; the host loads it at runtime without a compile-time assembly reference. The [theme and icon guide](../../docs/editor.md#theme-and-icons) explains appearance customization.
 
-The host supplies its theme, responsive layout and Material icons. The device collection is edited through the navigation tree rather than duplicated in the root object's generated form. See the [theme and icon guide](../../docs/editor.md#theme-and-icons) to adapt the appearance in another application.
+## Storage
 
-Configuration is saved under `samples/DeviceWorkbench/storage/workbench.json` when run from the source tree. A replacement retains `workbench.json.bak`. Storage is ignored by Git. Errors are displayed rather than silently replacing an unreadable file with defaults.
+Configuration is saved to `storage/workbench.json` under the host's content root, with `.bak` on replacement. Storage is ignored by Git. Read errors are displayed rather than replaced with defaults.
 
-This example is intended for one local user. Each circuit edits its own in-memory model, while saves use the same file; simultaneous sessions require a host concurrency policy. It has no authentication and no network-device operations. Do not use the sample as an externally exposed administration service.
+The sample connects to no hardware and is intended for one local user. Sessions edit separate models but save to the same file; concurrent use needs host coordination.
